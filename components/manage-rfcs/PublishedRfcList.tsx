@@ -195,7 +195,7 @@ function PublishedCard({
               </div>
             </div>
 
-            <Link href={`/manage-rfcs/${item.id}/edit`}>
+            <Link href={`/manage-rfcs/published/${item.id}`}>
               <Button
                 variant="primary"
                 size="md"

@@ -221,7 +221,7 @@ export function getPsiData(marketplaces: string | string[], psiType: string) {
 
   if (useAll) {
     const pOffset = psiType === 'All PSIs' ? 0 : Math.round((stableRand(psiType, 4) - 0.5) * 12);
-    return BASE_PSI.map((row, i) => ({
+    return BASE_PSI.map((row) => ({
       month: row.month,
       psi: Math.max(5, Math.min(60, row.psi + pOffset)),
       sellerDensity: row.sellerDensity,
@@ -558,6 +558,58 @@ export interface PublishedRfc extends BaseRfcItem {
   status: 'Published';
   featured: boolean;
   endDate: string;
+  draftNumber: string;
+  organisationName: string;
+  activationDate: string;
+  anonymous: boolean;
+  deliveryLocation: string;
+  rtcsRaised: number;
+  responseDate: string;
+  eligibilityPoints: string[];
+  psiList: string[];
+  stakeholdersAdded: string[];
+  favourites: {
+    rank: number;
+    owner: string;
+    marketplace: string;
+  }[];
+  potentialClients: {
+    rank: number;
+    company: string;
+    owner: string;
+    tags: string[];
+    marketplace: string;
+    score: number;
+  }[];
+  sellerSnapshot: {
+    marketplace: string;
+    region: string;
+    score: number;
+    tier: 'A-list' | 'B-list' | 'C-list';
+  };
+  rtcList: {
+    id: string;
+    rfcCode: string;
+    monthLabel: string;
+    dayLabel: string;
+    status: 'Under Review' | 'Pending';
+    category: string;
+    title: string;
+    summary: string;
+    sellerName: string;
+    sellerOrganisation: string;
+    attachmentCount: number;
+    appliedOn: string;
+    documents: {
+      id: string;
+      name: string;
+      kind: 'doc' | 'pdf';
+    }[];
+    questionnaire: {
+      question: string;
+      answer: string;
+    }[];
+  }[];
 }
 
 export const publishedRfcs: PublishedRfc[] = [
@@ -576,6 +628,154 @@ export const publishedRfcs: PublishedRfc[] = [
     featured: false,
     createdAt: '2025-04-11',
     endDate: '2025-05-02',
+    draftNumber: 'Draft No',
+    organisationName: 'XYZ Capital',
+    activationDate: '9 Jan 2025',
+    anonymous: true,
+    deliveryLocation: 'Europe',
+    rtcsRaised: 5,
+    responseDate: '23 Mar 2025',
+    eligibilityPoints: [
+      'Experience implementing healthcare analytics platforms across regulated markets.',
+      'Capability to integrate EHR, claims, and operational data into a unified reporting layer.',
+    ],
+    psiList: [
+      'Sample delivery plan covering phased rollout, data migration, and validation milestones.',
+      'Reference architecture for compliant data ingestion, dashboarding, and access controls.',
+    ],
+    stakeholdersAdded: [
+      'Marshal Kim (marshal.kim@meconnects.com)',
+      'Clinical Ops Lead (clinical.ops@xyzcapital.com)',
+    ],
+    favourites: [
+      { rank: 1, owner: 'NoahS', marketplace: 'E-commerce Hub' },
+      { rank: 2, owner: 'OliviaT', marketplace: 'E-commerce Hub' },
+    ],
+    potentialClients: [
+      {
+        rank: 1,
+        company: 'Innovative Solutions Inc.',
+        owner: 'James Frances',
+        tags: ['A - list', 'IRO'],
+        marketplace: 'E-commerce Hub',
+        score: 92,
+      },
+      {
+        rank: 2,
+        company: 'Tech Innovations LLC',
+        owner: 'Olivia T',
+        tags: ['A - list', 'IRO+'],
+        marketplace: 'Digital Marketplace',
+        score: 88,
+      },
+      {
+        rank: 3,
+        company: 'Creative Agency Ltd.',
+        owner: 'Liam R',
+        tags: ['A - list'],
+        marketplace: 'Online Marketplace',
+        score: 85,
+      },
+      {
+        rank: 4,
+        company: 'NextGen Solutions',
+        owner: 'Emma J',
+        tags: ['B - list', 'IRO'],
+        marketplace: 'Online Marketplace',
+        score: 60,
+      },
+      {
+        rank: 5,
+        company: 'Global Enterprises',
+        owner: 'Noah S',
+        tags: ['C - list'],
+        marketplace: 'Online Marketplace',
+        score: 50,
+      },
+    ],
+    sellerSnapshot: {
+      marketplace: 'Healthcare Analytics',
+      region: 'Europe',
+      score: 88,
+      tier: 'A-list',
+    },
+    rtcList: [
+      {
+        id: 'rtc-1',
+        rfcCode: 'RFC-INV-345',
+        monthLabel: 'Dec',
+        dayLabel: '18',
+        status: 'Under Review',
+        category: 'Private Equity',
+        title: 'Meridian Logistics Group proposes a phased rollout for analytics operations support',
+        summary:
+          'Submission includes a two-wave delivery model, healthcare data onboarding plan, and a compliance workstream for regional analytics activation across Europe.',
+        sellerName: 'James Thornton',
+        sellerOrganisation: 'Meridian Logistics Group',
+        attachmentCount: 2,
+        appliedOn: '03 December 2025',
+        documents: [
+          { id: 'doc-1', name: 'Implementation roadmap.docx', kind: 'doc' },
+          { id: 'doc-2', name: 'Security controls overview.pdf', kind: 'pdf' },
+          { id: 'doc-3', name: 'Clinical analytics case study.pdf', kind: 'pdf' },
+          { id: 'doc-4', name: 'Delivery governance model.pdf', kind: 'pdf' },
+        ],
+        questionnaire: [
+          {
+            question: 'Describe your implementation strategy:',
+            answer:
+              'We propose a phased implementation beginning with discovery and data-mapping, followed by connector deployment, analytics model validation, and regional rollout. Each phase includes stakeholder sign-off, risk tracking, and a rollback plan for critical integrations.',
+          },
+          {
+            question: 'Provide key metrics and performance track record:',
+            answer:
+              'Across the last 12 healthcare analytics programmes we delivered an average go-live readiness score of 96%, reduced reporting latency by 42%, and completed 10 of those implementations within the original approved timeline.',
+          },
+          {
+            question: 'What is your transparency policy?',
+            answer:
+              'Project risks, sprint progress, spend against plan, and open dependencies are shared weekly through a live dashboard and governance pack. Escalations are logged within one business day with clear owners and mitigation paths.',
+          },
+        ],
+      },
+      {
+        id: 'rtc-2',
+        rfcCode: 'RFC-INV-352',
+        monthLabel: 'Dec',
+        dayLabel: '21',
+        status: 'Pending',
+        category: 'Health Data',
+        title: 'Apex Supply Solutions outlines a rapid deployment model for cross-market reporting',
+        summary:
+          'The team is proposing prebuilt data connectors, KPI templates, and a 12-week implementation plan focused on executive dashboards and service-line reporting.',
+        sellerName: 'Sandra Okafor',
+        sellerOrganisation: 'Apex Supply Solutions',
+        attachmentCount: 3,
+        appliedOn: '08 December 2025',
+        documents: [
+          { id: 'doc-5', name: 'Connector inventory.pdf', kind: 'pdf' },
+          { id: 'doc-6', name: 'Executive dashboard samples.pdf', kind: 'pdf' },
+          { id: 'doc-7', name: 'Programme staffing plan.docx', kind: 'doc' },
+        ],
+        questionnaire: [
+          {
+            question: 'Describe your implementation strategy:',
+            answer:
+              'Our team uses a 12-week rapid deployment structure with reusable healthcare data connectors, weekly steering checkpoints, and parallel workstreams for reporting design and compliance validation.',
+          },
+          {
+            question: 'Provide key metrics and performance track record:',
+            answer:
+              'We have delivered 18 enterprise reporting modernisation projects since 2022, with an average 35% reduction in manual reporting effort and a median executive adoption rate above 80% within the first quarter after go-live.',
+          },
+          {
+            question: 'What is your transparency policy?',
+            answer:
+              'Status, issue logs, and dependency trackers are shared with client stakeholders in real time. Commercial and delivery changes require documented approval through the steering committee before they are actioned.',
+          },
+        ],
+      },
+    ],
   },
   {
     id: 'published-2',
@@ -592,6 +792,98 @@ export const publishedRfcs: PublishedRfc[] = [
     featured: true,
     createdAt: '2025-04-14',
     endDate: '2025-05-08',
+    draftNumber: 'Draft No',
+    organisationName: 'Northstar Retail Group',
+    activationDate: '18 Feb 2025',
+    anonymous: false,
+    deliveryLocation: 'Toronto, Canada',
+    rtcsRaised: 8,
+    responseDate: '2 Apr 2025',
+    eligibilityPoints: [
+      'Demonstrated omnichannel marketplace launches for premium retail brands.',
+      'Experience integrating store inventory, POS, and CRM systems.',
+    ],
+    psiList: [
+      'Clienteling journey maps with service blueprints.',
+      'Store associate enablement and post-launch optimisation model.',
+    ],
+    stakeholdersAdded: ['Priya Nair (priya.nair@meconnects.com)', 'Retail Transformation PMO'],
+    favourites: [
+      { rank: 1, owner: 'HarperK', marketplace: 'Experience Design' },
+      { rank: 2, owner: 'MasonL', marketplace: 'Commerce Operations' },
+    ],
+    potentialClients: [
+      {
+        rank: 1,
+        company: 'Brandline Studio',
+        owner: 'Harper K',
+        tags: ['A - list', 'IRO+'],
+        marketplace: 'Experience Design',
+        score: 90,
+      },
+      {
+        rank: 2,
+        company: 'Retail Mesh',
+        owner: 'Mason L',
+        tags: ['A - list', 'IRO'],
+        marketplace: 'Commerce Operations',
+        score: 84,
+      },
+      {
+        rank: 3,
+        company: 'Supply River',
+        owner: 'Avery B',
+        tags: ['B - list'],
+        marketplace: 'Fulfilment',
+        score: 77,
+      },
+    ],
+    sellerSnapshot: {
+      marketplace: 'Marketplace Operations',
+      region: 'North America',
+      score: 84,
+      tier: 'A-list',
+    },
+    rtcList: [
+      {
+        id: 'rtc-3',
+        rfcCode: 'RFC-RET-102',
+        monthLabel: 'Jan',
+        dayLabel: '04',
+        status: 'Under Review',
+        category: 'Marketplace Ops',
+        title: 'Retail marketplace operator available to support premium brand launch',
+        summary:
+          'A cross-functional seller is proposing operational support, merchandising setup, and post-launch optimization for the marketplace rollout.',
+        sellerName: 'Harper K',
+        sellerOrganisation: 'Brandline Studio',
+        attachmentCount: 4,
+        appliedOn: '04 January 2026',
+        documents: [
+          { id: 'doc-8', name: 'Marketplace launch checklist.pdf', kind: 'pdf' },
+          { id: 'doc-9', name: 'Store enablement pack.pdf', kind: 'pdf' },
+          { id: 'doc-10', name: 'Clienteling journey sample.docx', kind: 'doc' },
+          { id: 'doc-11', name: 'Service blueprint.pdf', kind: 'pdf' },
+        ],
+        questionnaire: [
+          {
+            question: 'Describe your implementation strategy:',
+            answer:
+              'We would start with a four-week launch blueprint focused on merchandising setup, partner onboarding, and operating model alignment, followed by a controlled market rollout and post-launch optimisation sprint.',
+          },
+          {
+            question: 'Provide key metrics and performance track record:',
+            answer:
+              'Recent retail marketplace launches led by our team have achieved a 29% faster seller onboarding cycle and a 17% increase in first-90-day GMV compared with prior launches run without structured enablement.',
+          },
+          {
+            question: 'What is your transparency policy?',
+            answer:
+              'All client workstreams are tracked through a shared launch board with open risk logs, weekly working sessions, and clear red-amber-green reporting for commercial, content, and operations readiness.',
+          },
+        ],
+      },
+    ],
   },
   {
     id: 'published-3',
@@ -608,6 +900,84 @@ export const publishedRfcs: PublishedRfc[] = [
     featured: false,
     createdAt: '2025-04-17',
     endDate: '2025-04-30',
+    draftNumber: 'Draft No',
+    organisationName: 'Global Enterprises',
+    activationDate: '7 Mar 2025',
+    anonymous: true,
+    deliveryLocation: 'Frankfurt, Germany',
+    rtcsRaised: 3,
+    responseDate: '11 Apr 2025',
+    eligibilityPoints: [
+      'Operational data platform experience with inventory, ERP, and supply chain systems.',
+      '24/7 support model for alerting and response automation.',
+    ],
+    psiList: [
+      'Inventory event model and source system mapping.',
+      'Alert routing rules, escalation matrices, and SLA reporting examples.',
+    ],
+    stakeholdersAdded: ['Sarah Okafor (sarah.okafor@meconnects.com)', 'Supply Chain Analytics Lead'],
+    favourites: [{ rank: 1, owner: 'KaiD', marketplace: 'Supply Intelligence' }],
+    potentialClients: [
+      {
+        rank: 1,
+        company: 'OpsRadar',
+        owner: 'Kai D',
+        tags: ['A - list', 'IRO+'],
+        marketplace: 'Supply Intelligence',
+        score: 89,
+      },
+      {
+        rank: 2,
+        company: 'Blue Grid',
+        owner: 'Sofia P',
+        tags: ['B - list', 'IRO'],
+        marketplace: 'Automation',
+        score: 73,
+      },
+    ],
+    sellerSnapshot: {
+      marketplace: 'Supply Automation',
+      region: 'Europe',
+      score: 73,
+      tier: 'B-list',
+    },
+    rtcList: [
+      {
+        id: 'rtc-4',
+        rfcCode: 'RFC-SUP-221',
+        monthLabel: 'Feb',
+        dayLabel: '12',
+        status: 'Pending',
+        category: 'Supply Automation',
+        title: 'Inventory automation specialist ready for distribution workflow integration',
+        summary:
+          'The seller response focuses on inventory event ingestion, alert routing, and reporting automation for enterprise supply teams.',
+        sellerName: 'Kai D',
+        sellerOrganisation: 'OpsRadar',
+        attachmentCount: 1,
+        appliedOn: '12 February 2026',
+        documents: [
+          { id: 'doc-12', name: 'Automation capability summary.pdf', kind: 'pdf' },
+        ],
+        questionnaire: [
+          {
+            question: 'Describe your implementation strategy:',
+            answer:
+              'We would begin with source-system event mapping, then configure alert routing and exception workflows before moving into reporting automation and user enablement for operations teams.',
+          },
+          {
+            question: 'Provide key metrics and performance track record:',
+            answer:
+              'Our last five supply automation engagements reduced exception resolution time by an average of 31% and increased same-day visibility on disrupted orders by 48%.',
+          },
+          {
+            question: 'What is your transparency policy?',
+            answer:
+              'Every automation release includes documented change notes, live dashboards for workflow health, and fortnightly operating reviews with the client’s analytics and operations leads.',
+          },
+        ],
+      },
+    ],
   },
 ];
 
